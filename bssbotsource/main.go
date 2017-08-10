@@ -24,6 +24,12 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
+
+	// Creating table if not exists
+	if err := session.Query("CREATE TABLE IF NOT EXISTS botapi.items ( id UUID PRIMARY KEY, name text, description text, price int, photos list<blob> )").Exec(); err != nil {
+		log.Panic(err)
+	}
+
 	defer session.Close()
 	bot, err := tgbotapi.NewBotAPI(teltoken)
 	if err != nil {
@@ -70,7 +76,7 @@ func main() {
 			}
 		}
 		gocqlUuid := gocql.TimeUUID()
-		if err := session.Query("INSERT INTO table1 (id, name, description, price, photos) VALUES (?, ?, ?, ?, ?)", gocqlUuid, name, description, price, images).Exec(); err != nil {
+		if err := session.Query("INSERT INTO items (id, name, description, price, photos) VALUES (?, ?, ?, ?, ?)", gocqlUuid, name, description, price, images).Exec(); err != nil {
 			log.Panic(err)
 		}
 	})
@@ -84,7 +90,7 @@ func main() {
 			if update.Message.Text == "showlist" {
 				var items []Item
 				m := map[string]interface{}{}
-				query := session.Query("SELECT * FROM table1").Iter()
+				query := session.Query("SELECT * FROM items").Iter()
 				for query.MapScan(m) {
 					items = append(items, Item{
 						ID:          m["id"].(gocql.UUID).String(),
@@ -115,7 +121,7 @@ func main() {
 			}
 		}
 		if update.CallbackQuery != nil {
-			if err := session.Query("DELETE FROM table1 WHERE id=?", update.CallbackQuery.Data).Exec(); err != nil {
+			if err := session.Query("DELETE FROM items WHERE id=?", update.CallbackQuery.Data).Exec(); err != nil {
 				log.Panic(err)
 			}
 		}

@@ -1,0 +1,20 @@
+hash: 58f864a3fe8dd734923b10eadecdd2ce86c906e240178c68a76f2b13ffe076bb
+updated: 2017-08-10T13:31:50.376326433+03:00
+imports:
+- name: github.com/gocql/gocql
+  version: 77431609f517cb41ee9afdcdd373561c4d935316
+  subpackages:
+  - internal/lru
+  - internal/murmur
+  - internal/streams
+- name: github.com/golang/snappy
+  version: 553a641470496b2327abcac10b36396bd98e45c9
+- name: github.com/hailocab/go-hostpool
+  version: e80d13ce29ede4452c43dea11e79b9bc8a15b478
+- name: github.com/Syfaro/telegram-bot-api
+  version: 9dda67c714e5e2cba837b28a0172cca2ed54f078
+- name: github.com/technoweenie/multipartstreamer
+  version: a90a01d73ae432e2611d178c18367fbaa13e0154
+- name: gopkg.in/inf.v0
+  version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
+testImports: []

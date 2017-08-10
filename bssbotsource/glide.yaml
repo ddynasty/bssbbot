@@ -1,0 +1,4 @@
+package: github.com/bssbbot/bssbotsource
+import:
+- package: github.com/gocql/gocql
+- package: github.com/Syfaro/telegram-bot-api
